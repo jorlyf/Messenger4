@@ -1,0 +1,14 @@
+#GLOBAL
+/.vs
+
+#API
+/api/.vs
+/api/api.sln
+
+/api/bin
+/api/obj
+
+/api/Migrations
+/api/*.db
+
+#FRONT
