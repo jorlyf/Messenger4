@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace api.Entities.Db.User
 {
-	[Index(nameof(Login), IsUnique = true)]
+	[Index(nameof(Login), IsUnique = true]
 	public class UserModel : IEntity
 	{
 		[Key]

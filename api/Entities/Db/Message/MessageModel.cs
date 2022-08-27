@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using api.Entities.Db.Dialog;
 using api.Entities.Db.User;
 
 namespace api.Entities.Db.Message
@@ -8,7 +9,14 @@ namespace api.Entities.Db.Message
 		[Key]
 		public int Id { get; set; }
 
+		[Required]
+		public int DialogId { get; set; }
+
+		[Required]
+		public DialogType DialogType { get; set; }
+
 		public MessageModel? ReplyToMessage { get; set; }
+
 		public int? ReplyToMessageId { get; set; }
 
 		[Required]

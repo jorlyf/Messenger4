@@ -13,11 +13,4 @@ namespace api.Entities.Db.Message
 		[Required]
 		public string Url { get; set; }
 	}
-
-	public enum AttachmentType
-	{
-		Photo,
-		Video,
-		File
-	}
 }

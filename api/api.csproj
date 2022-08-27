@@ -6,4 +6,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\DTOs\Auth\" />
+    <Folder Include="Entities\DTOs\Dialog\" />
+    <Folder Include="Entities\DTOs\Message\" />
+    <Folder Include="Hubs\" />
+    <Folder Include="Services\Dialog\" />
+    <Folder Include="Services\Message\" />
+    <Folder Include="Services\Notification\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.8" />
+  </ItemGroup>
+
 </Project>
