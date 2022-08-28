@@ -12,4 +12,8 @@
 /api/Migrations
 /api/*.db
 
+/api/appsettings.*
+
 #FRONT
+/app/node_modules
+/app/build
