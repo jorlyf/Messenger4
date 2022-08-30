@@ -17,12 +17,24 @@ module.exports = {
     new CleanWebpackPlugin()
   ],
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
+    alias: {
+      "@public": path.resolve(__dirname, "public"),
+      "@http$": path.resolve(__dirname, "src", "http"),
+      "@redux": path.resolve(__dirname, "src", "redux"),
+      "@hooks": path.resolve(__dirname, "src", "hooks"),
+      "@services": path.resolve(__dirname, "src", "services"),
+      "@pages": path.resolve(__dirname, "src", "pages"),
+      "@modals": path.resolve(__dirname, "src", "modals"),
+      "@components": path.resolve(__dirname, "src", "components"),
+      "@entities": path.resolve(__dirname, "src", "entities"),
+      "@helpers": path.resolve(__dirname, "src", "helpers")
+    }
   },
   module: {
     rules: [
       {
-        test: /\.(css|scss)$/,
+        test: /\.(css|scss|module.scss)$/,
         use: ["style-loader", "css-loader", "sass-loader"]
       },
       {

@@ -18,7 +18,7 @@ namespace api.Controllers
 
 		[Authorize]
 		[HttpPost]
-		[Route("Token")]
+		[Route("TokenLogin")]
 		public ActionResult LoginByToken()
 		{
 			return Ok();
