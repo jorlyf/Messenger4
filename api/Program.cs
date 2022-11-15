@@ -84,6 +84,15 @@ builder.Services.AddCors(options =>
 
 WebApplication app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+	app.UseCors("Development");
+}
+else
+{
+	app.UseCors("Production");
+}
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

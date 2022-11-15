@@ -21,7 +21,7 @@ namespace api.Repositories
 
 		public IQueryable<GroupDialogModel> GetByUserId(int userId)
 		{
-			return this.Set.Where(dialog => dialog.UserIds.Contains(userId));
+			return this.Set.Where(dialog => dialog.UserIds.Any(u => u.UserId == userId));
 		}
 	}
 }

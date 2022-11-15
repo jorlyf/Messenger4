@@ -1,6 +1,7 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { LoginService } from "@services/index";
-import { LoginAnswer, LoginData } from "@entities/auth";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import LoginService from "@services/LoginService";
+import RegistrationService from "@services/RegistrationService";
+import { LoginAnswer, LoginData, RegistrationData } from "@entities/auth";
 
 export const login = createAsyncThunk<LoginAnswer, LoginData>(
   "auth/login",
@@ -18,25 +19,35 @@ export const tokenLogin = createAsyncThunk<LoginAnswer>(
   }
 );
 
+export const register = createAsyncThunk<LoginAnswer, RegistrationData>(
+  "auth/register",
+  async (registrationData) => {
+    const loginAnswer = await RegistrationService.register(registrationData);
+    return loginAnswer;
+  }
+);
+
 interface AuthState {
   token: string | null;
   isAuthorized: boolean;
   isLogging: boolean;
-  wasLoginAttempt: boolean;
+  wasInitLoginAttempt: boolean;
 }
 
 const initialState: AuthState = {
   token: null,
   isAuthorized: false,
   isLogging: false,
-  wasLoginAttempt: false
+  wasInitLoginAttempt: false
 }
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-
+    setWasInitAuthAttempt(state, action: PayloadAction<boolean>) {
+      state.wasInitLoginAttempt = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -49,18 +60,20 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLogging = false;
         state.isAuthorized = true;
-        state.wasLoginAttempt = true;
+        state.wasInitLoginAttempt = true;
 
         state.token = action.payload.token;
       })
       .addCase(login.rejected, (state) => {
         state.isLogging = false;
         state.isAuthorized = false;
-        state.wasLoginAttempt = true;
+        state.wasInitLoginAttempt = true;
 
         state.token = null;
       })
   }
 });
+
+export const { setWasInitAuthAttempt } = authSlice.actions;
 
 export default authSlice.reducer;

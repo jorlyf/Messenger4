@@ -8,7 +8,7 @@ namespace api.Entities.Db.Dialog
 		public int CreatorUserId { get; set; }
 
 		[Required]
-		public IEnumerable<int> UserIds { get; set; }
+		public IEnumerable<GroupDialogUserId> UserIds { get; set; }
 
 		[Required]
 		public string Name { get; set; }

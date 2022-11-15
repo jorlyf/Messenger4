@@ -1,35 +1,30 @@
 import React from "react";
 
-import LeftColumnHeader from "@components/LeftColumnHeader";
+import useInitLoginAttempt from "@hooks/useInitLoginAttempt";
+import useAuthPageRedirect from "@hooks/useAuthPageRedirect";
 
+import LeftColumnHeader from "@components/LeftColumnHeader";
+import LeftColumn from "@components/LeftColumn";
+import RightColumnHeader from "@components/RightColumnHeader";
+
+import Routing from "./Routing";
 import styles from "./App.module.scss";
 
 const App: React.FC = () => {
 
-
+  useInitLoginAttempt();
+  useAuthPageRedirect();
 
   return (
     <div className={styles.app}>
       <div className={styles.leftColumn}>
         <LeftColumnHeader />
-        {/* {wasInitAuthAttempt &&
-          <>
-            <DialogListContainer />
-            <CreateGroupDialogButtonContainer />
-          </>
-        } */}
+        <LeftColumn />
       </div>
 
       <div className={styles.rightColumn}>
-        {/* <RightColumnHeaderContainer />
-        {wasInitAuthAttempt &&
-          <Routes>
-            <Route element={<Home />} path="/" />
-            <Route element={<Chat />} path="/:chatId" />
-            <Route element={<Auth />} path="/auth" />
-            <Route element={<Profile />} path="/profile" />
-            <Route element={<NotFound />} path="*" />
-          </Routes>} */}
+        <RightColumnHeader />
+        <Routing />
       </div>
 
       {/* <Modals /> */}

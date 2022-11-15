@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using api.Entities.Db.Message;
 
 namespace api.Entities.Db.Dialog
 {
@@ -9,7 +8,7 @@ namespace api.Entities.Db.Dialog
 		public int Id { get; set; }
 
 		[Required]
-		public IEnumerable<MessageModel> Messages { get; set; }
+		public IEnumerable<DialogMessage> Messages { get; set; }
 
 		[Required]
 		public int CreatedTimestamp { get; set; }

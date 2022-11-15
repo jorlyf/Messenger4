@@ -1,6 +1,7 @@
 const path = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = {
   mode: process.env.MODE,
@@ -10,17 +11,23 @@ module.exports = {
     filename: "[name].[hash].js"
   },
   devServer: {
-    port: process.env.DEV_PORT
+    port: process.env.DEV_PORT,
+    historyApiFallback: true
   },
   plugins: [
     new HTMLWebpackPlugin({ template: "./public/index.html" }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new webpack.DefinePlugin(
+      {
+        "process.env.MODE": JSON.stringify(process.env.MODE)
+      }
+    )
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
     alias: {
       "@public": path.resolve(__dirname, "public"),
-      "@http$": path.resolve(__dirname, "src", "http"),
+      "@http": path.resolve(__dirname, "src", "http"),
       "@redux": path.resolve(__dirname, "src", "redux"),
       "@hooks": path.resolve(__dirname, "src", "hooks"),
       "@services": path.resolve(__dirname, "src", "services"),

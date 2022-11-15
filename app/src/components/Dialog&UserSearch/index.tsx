@@ -11,7 +11,7 @@ interface DialogAndUserSearchProps {
 
 const DialogAndUserSearch: React.FC<DialogAndUserSearchProps> = ({ handleUserItemClick, handlePublicGroupItemClick, clearAfterUserItemClick }) => {
 
-  const ownerUser = useAppSelector(state => state.profile.user);
+  //const ownerUser = useAppSelector(state => state.profile.user);
 
   const [searchValue, setSearchValue] = React.useState<string>("");
   const [searchResult, setSearchResult] = React.useState([]);
@@ -57,13 +57,13 @@ const DialogAndUserSearch: React.FC<DialogAndUserSearchProps> = ({ handleUserIte
 
   return (
     <div>
-      <Search
+      {/* <Search
         value={searchValue}
         setValue={handleChangeSearchValue}
         isFocus={inputFocus}
         setIsFocus={setInputFocus}
         disabled={!ownerUser}
-      />
+      /> */}
       {active && searchResult &&
         <SearchResult
         // items={searchResult}

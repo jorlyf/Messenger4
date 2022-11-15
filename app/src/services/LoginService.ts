@@ -1,4 +1,4 @@
-import $api from "@http/index";
+import $api from "@http/api";
 import { LoginAnswer, LoginData } from "@entities/auth";
 
 export default class AuthService {

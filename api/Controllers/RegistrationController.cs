@@ -18,11 +18,11 @@ namespace api.Controllers
 
 		[HttpPost]
 		[Route("")]
-		public async Task<ActionResult<string>> RegistrateAsync(string login, string password)
+		public async Task<ActionResult<string>> RegisterAsync(string login, string password)
 		{
 			try
 			{
-				string token = await this.RegistrationService.RegistrateAsync(login, password);
+				string token = await this.RegistrationService.RegisterAsync(login, password);
 				return Ok(token);
 			}
 			catch (AuthException ex)

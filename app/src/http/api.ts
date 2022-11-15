@@ -1,3 +1,4 @@
+import LocalStorageService from "@services/LocalStorageService";
 import axios from "axios";
 
 export enum NodeEnv {
@@ -28,7 +29,7 @@ const $api = axios.create({
 });
 
 $api.interceptors.request.use(config => {
-  config.headers!.Authorization = "Bearer " + localStorage.getItem("token") || "";
+  config.headers!.Authorization = "Bearer " + LocalStorageService.getToken() || "";
   return config;
 });
 

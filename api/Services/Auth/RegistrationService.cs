@@ -20,7 +20,7 @@ namespace api.Services.Auth
 		}
 
 
-		public async Task<string> RegistrateAsync(string login, string password)
+		public async Task<string> RegisterAsync(string login, string password)
 		{
 			if (await IsUserLoginExist(login))
 			{

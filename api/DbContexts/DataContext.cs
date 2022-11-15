@@ -12,5 +12,10 @@ namespace api.DbContexts
 		public DbSet<AttachmentModel> Attachments { get; set; }
 		public DbSet<PrivateDialogModel> PrivateDialogs { get; set; }
 		public DbSet<GroupDialogModel> GroupDialogs { get; set; }
+
+		public DataContext(DbContextOptions<DataContext> options) : base(options)
+		{
+			this.Database.EnsureCreated();
+		}
 	}
 }
