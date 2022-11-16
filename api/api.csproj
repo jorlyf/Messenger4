@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\DTOs\Auth\" />
     <Folder Include="Entities\DTOs\Dialog\" />
     <Folder Include="Entities\DTOs\Message\" />
     <Folder Include="Hubs\" />

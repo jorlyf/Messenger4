@@ -18,7 +18,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 	options.UseSqlite($"Data Source={Environment.CurrentDirectory}/messenger.db");
 	if (builder.Environment.IsDevelopment())
 	{
-		options.LogTo(Console.WriteLine, LogLevel.Information);
+		options.LogTo(Console.WriteLine, LogLevel.Warning);
 	}
 });
 
@@ -95,6 +95,7 @@ else
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { setWasInitAuthAttempt, tokenLogin } from "@redux/slices/auth";
 
-import { setWasInitAuthAttempt } from "@redux/slices/auth";
+import { AppDispatch } from "@redux/store";
 import useAppSelector from "@hooks/useAppSelector";
 import LocalStorageService from "@services/LocalStorageService";
-import LoginService from "@services/LoginService";
 
 const useInitLoginAttempt = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const wasInitLoginAttempt = useAppSelector(state => state.auth.wasInitLoginAttempt);
   const isLogging = useAppSelector(state => state.auth.isLogging);
@@ -16,7 +16,7 @@ const useInitLoginAttempt = () => {
     if (!wasInitLoginAttempt && !isLogging) {
       const token = LocalStorageService.getToken();
       if (token) {
-        LoginService.tokenLogin();
+        dispatch(tokenLogin());
       }
       else {
         dispatch(setWasInitAuthAttempt(true));

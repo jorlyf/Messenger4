@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import LoginService from "@services/LoginService";
 import RegistrationService from "@services/RegistrationService";
 import { LoginAnswer, LoginData, RegistrationData } from "@entities/auth";
+import LocalStorageService from "@services/LocalStorageService";
 
 export const login = createAsyncThunk<LoginAnswer, LoginData>(
   "auth/login",
@@ -20,7 +21,7 @@ export const tokenLogin = createAsyncThunk<LoginAnswer>(
 );
 
 export const register = createAsyncThunk<LoginAnswer, RegistrationData>(
-  "auth/register",
+  "auth/login",
   async (registrationData) => {
     const loginAnswer = await RegistrationService.register(registrationData);
     return loginAnswer;
@@ -54,15 +55,17 @@ const authSlice = createSlice({
       .addCase(login.pending, (state) => {
         state.isLogging = true;
         state.isAuthorized = false;
-
-        state.token = null;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLogging = false;
         state.isAuthorized = true;
         state.wasInitLoginAttempt = true;
 
+        console.log(action.payload);
+        
+
         state.token = action.payload.token;
+        LocalStorageService.setToken(action.payload.token);
       })
       .addCase(login.rejected, (state) => {
         state.isLogging = false;
@@ -70,6 +73,7 @@ const authSlice = createSlice({
         state.wasInitLoginAttempt = true;
 
         state.token = null;
+        LocalStorageService.clearToken();
       })
   }
 });

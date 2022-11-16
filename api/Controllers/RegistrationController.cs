@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using api.Services.Auth;
 using api.Infrastructure.Exceptions.Auth;
+using api.Entities.DTOs.Auth;
 
 namespace api.Controllers
 {
@@ -18,12 +19,13 @@ namespace api.Controllers
 
 		[HttpPost]
 		[Route("")]
-		public async Task<ActionResult<string>> RegisterAsync(string login, string password)
+		public async Task<ActionResult<LoginAnswer>> RegisterAsync([FromBody] RegistrationData registrationData)
 		{
 			try
 			{
-				string token = await this.RegistrationService.RegisterAsync(login, password);
-				return Ok(token);
+				string token = await this.RegistrationService.RegisterAsync(registrationData.Login, registrationData.Password);
+				LoginAnswer answer = new LoginAnswer { Token = token };
+				return Ok(answer);
 			}
 			catch (AuthException ex)
 			{

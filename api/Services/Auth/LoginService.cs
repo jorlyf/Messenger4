@@ -2,6 +2,8 @@
 using api.Entities.Db.User;
 using api.Repositories;
 using api.Infrastructure.Exceptions.Auth;
+using Microsoft.AspNetCore.Mvc;
+using api.Entities.DTOs.Auth;
 
 namespace api.Services.Auth
 {
@@ -16,7 +18,6 @@ namespace api.Services.Auth
 			this.UoW = uow;
 			this.HashService = hashService;
 			this.JwtService = jwtService;
-
 		}
 
 
@@ -28,7 +29,7 @@ namespace api.Services.Auth
 				.FirstOrDefaultAsync();
 
 			string passwordHash = this.HashService.GetHash(password);
-			if (user?.PasswordHash != passwordHash)
+			if (user == null || user.PasswordHash != passwordHash)
 			{
 				throw new AuthException(AuthExceptionReason.IncorrectLoginData);
 			}
