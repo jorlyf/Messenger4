@@ -16,12 +16,13 @@ namespace api.Entities.Db.Message
 		[Required]
 		public DialogType DialogType { get; set; }
 
-		public MessageModel? ReplyToMessage { get; set; }
-
 		public int? ReplyToMessageId { get; set; }
 
+		[InverseProperty("Replies")]
+		public virtual MessageModel? ReplyToMessage { get; set; }
+
 		[Required]
-		public IEnumerable<MessageModel> Replies { get; set; }
+		public virtual IEnumerable<MessageModel> Replies { get; set; }
 
 		[Required]
 		public UserModel SenderUser { get; set; }

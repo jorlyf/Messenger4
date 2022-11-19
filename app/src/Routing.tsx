@@ -12,7 +12,7 @@ export enum RoutingURL {
 const Routing: React.FC = () => {
   return (
     <Routes>
-      {/* <Route element={<HomePage />} path="/" /> */}
+      <Route element={<HomePage />} path="/" />
       {/* <Route element={<Chat />} path="/:chatId" /> */}
       <Route element={<AuthPage />} path={RoutingURL.auth} />
       {/* <Route element={<Profile />} path="/profile" />

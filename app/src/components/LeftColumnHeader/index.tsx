@@ -1,3 +1,4 @@
+import LeftColumnHeaderUserMenuContainer from "@components/LeftColumnHeaderUserMenu";
 import React from "react";
 
 import styles from "./index.module.scss";
@@ -11,9 +12,7 @@ const LeftColumnHeaderContainer: React.FC = () => {
 const LeftColumnHeader: React.FC = () => {
   return (
     <header className={styles.header}>
-      <div className={styles.menu}>
-        {/* <MenuContainer /> */}
-      </div>
+      <LeftColumnHeaderUserMenuContainer />
       <div className={styles.search}>
         {/* <DialogAndUserSearchContainer
           handleUserItemClick={handleSearchResultUserItemClick}

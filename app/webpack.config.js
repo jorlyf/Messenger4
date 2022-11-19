@@ -5,6 +5,7 @@ const webpack = require("webpack");
 
 module.exports = {
   mode: process.env.MODE,
+  devtool: "eval-cheap-source-map",
   entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "build"),

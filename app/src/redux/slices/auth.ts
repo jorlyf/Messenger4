@@ -46,6 +46,14 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    logout(state) {
+      state.isLogging = false;
+      state.isAuthorized = false;
+      state.wasInitLoginAttempt = true;
+
+      state.token = null;
+      LocalStorageService.clearToken();
+    },
     setWasInitAuthAttempt(state, action: PayloadAction<boolean>) {
       state.wasInitLoginAttempt = action.payload;
     }
@@ -61,9 +69,6 @@ const authSlice = createSlice({
         state.isAuthorized = true;
         state.wasInitLoginAttempt = true;
 
-        console.log(action.payload);
-        
-
         state.token = action.payload.token;
         LocalStorageService.setToken(action.payload.token);
       })
@@ -78,6 +83,6 @@ const authSlice = createSlice({
   }
 });
 
-export const { setWasInitAuthAttempt } = authSlice.actions;
+export const { logout, setWasInitAuthAttempt } = authSlice.actions;
 
 export default authSlice.reducer;

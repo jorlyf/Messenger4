@@ -8,9 +8,6 @@ namespace api.Entities.Db.Dialog
 		public int Id { get; set; }
 
 		[Required]
-		public IEnumerable<DialogMessage> Messages { get; set; }
-
-		[Required]
 		public int CreatedTimestamp { get; set; }
 
 		[Required]

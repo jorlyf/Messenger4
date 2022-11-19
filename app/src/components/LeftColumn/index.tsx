@@ -1,14 +1,11 @@
-import React from "react";
+import * as React from "react";
+import DialogList from "@components/DialogList";
 
 const LeftColumn: React.FC = () => {
   return (
     <div>
-      {/* {wasInitAuthAttempt &&
-        <>
-          <DialogList />
-          <CreateGroupDialogButton />
-        </>
-      } */}
+      <DialogList />
+      {/* <CreateGroupDialogButton /> */}
     </div>
   )
 }
