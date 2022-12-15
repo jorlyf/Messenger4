@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import auth from "./slices/auth";
 import profile from "./slices/profile";
+import dialog from "./slices/dialog";
 
 const store = configureStore({
   reducer: {
     auth,
-    profile
+    profile,
+    dialog
   }
 });
 

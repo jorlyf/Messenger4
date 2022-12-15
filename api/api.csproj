@@ -7,11 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\DTOs\Dialog\" />
-    <Folder Include="Entities\DTOs\Message\" />
     <Folder Include="Hubs\" />
-    <Folder Include="Services\Dialog\" />
-    <Folder Include="Services\Message\" />
     <Folder Include="Services\Notification\" />
   </ItemGroup>
 

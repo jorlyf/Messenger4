@@ -1,19 +1,17 @@
 import * as React from "react";
 import { getUserDataUrl } from "@helpers/index";
-import { DialogType } from "@entities/local";
 import DefaultAvatar from "@public/DefaultAvatar.jpg";
 
 import styles from "./DialogListItem.module.css";
 
 export interface IDialogItem {
-  id: number;
-  type: DialogType;
+  id: string;
   name: string;
   isCurrentDialog: boolean;
   onClick?: () => void;
-  lastMessageText?: string | null;
-  isLastMessageMy?: boolean;
-  notificationCount?: number;
+  lastMessageText: string;
+  isLastMessageMy: boolean;
+  unreadedMessageCount?: number;
   avatarUrl: string | null;
   lastUpdatedTimestamp: number;
 }

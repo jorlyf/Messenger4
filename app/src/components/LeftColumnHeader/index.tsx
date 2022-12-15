@@ -1,5 +1,5 @@
-import LeftColumnHeaderUserMenuContainer from "@components/LeftColumnHeaderUserMenu";
 import React from "react";
+import LeftColumnHeaderUserMenuContainer from "@components/LeftColumnHeaderUserMenu";
 
 import styles from "./index.module.scss";
 

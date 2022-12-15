@@ -19,10 +19,10 @@ const DialogListContainer: React.FC = () => {
   const isAuthorized = useAppSelector(state => state.auth.isAuthorized);
   const ownerUser = useAppSelector(state => state.profile.user);
 
-  const dialogs = useAppSelector(state => state.chat.dialogs);
-  const dialogsFetched = useAppSelector(state => state.chat.dialogsFetched);
-  const currentDialogInfo = useAppSelector(state => state.chat.currentDialogInfo);
-  const totalDialogCount = useAppSelector(state => state.chat.totalDialogCount);
+  const dialogs = useAppSelector(state => state.dialog.dialogs);
+  const dialogsFetched = useAppSelector(state => state.dialog.dialogsInitFetched);
+  const currentDialogInfo = useAppSelector(state => state.dialog.currentDialogInfo);
+  const totalDialogCount = useAppSelector(state => state.dialog.totalDialogCount);
 
   const [fetchDialogsAvailable, setFetchDialogsAvailable] = React.useState<boolean>(true);
 
@@ -47,7 +47,8 @@ const DialogListContainer: React.FC = () => {
     if (!dialogsFetched) return;
 
     setFetchDialogsAvailable(false);
-    await DialogService.getMoreDialogs(dispatch, dialogs, totalDialogCount);
+
+    //await DialogService.getMoreDialogs(dispatch, dialogs, totalDialogCount);
 
     setTimeout(() => {
       setFetchDialogsAvailable(true);
@@ -65,17 +66,17 @@ const DialogListContainer: React.FC = () => {
         onClick: () => { navigate(getDialogNavigateUrl(d)) },
         name: d.name,
         avatarUrl: d.avatarUrl,
-        lastMessageText: lastMsg?.text,
-        isLastMessageMy: lastMsg?.senderUser.id === ownerUser?.id,
-        lastUpdateTotalMilliseconds: d.lastUpdateTotalMilliseconds
+        lastMessageText: lastMsg?.text || "",
+        isLastMessageMy: lastMsg?.senderUserId === ownerUser?.id,
+        lastUpdatedTimestamp: d.lastUpdatedTimestamp
       }
-    }).sort((x, y) => y.lastUpdateTotalMilliseconds - x.lastUpdateTotalMilliseconds);
+    }).sort((x, y) => y.lastUpdatedTimestamp - x.lastUpdatedTimestamp);
   }, [dialogs, currentDialogInfo, navigate]);
 
   React.useEffect(() => {
     if (!isAuthorized || !ownerUser || dialogsFetched) return;
 
-    DialogService.fisrtLoadDialogs(dispatch);
+    //DialogService.initLoadDialogs();
 
   }, [isAuthorized, ownerUser, dialogsFetched]);
 

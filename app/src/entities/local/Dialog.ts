@@ -4,12 +4,14 @@ export enum DialogType {
 }
 
 export default interface Dialog {
-  id: number;
+  id: string;
+  apiId: number;
   type: DialogType;
   name: string;
-  messages: [],
+  messages: [];
   totalMessageCount: number;
-  userIds: number[],
+  unreadedMessageCount: number;
+  userIds: number[];
   avatarUrl: string | null;
   createdTimestamp: number;
   lastUpdatedTimestamp: number;

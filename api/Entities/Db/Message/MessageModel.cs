@@ -41,6 +41,9 @@ namespace api.Entities.Db.Message
 		public bool Edited { get; set; }
 
 		[Required]
+		public int LastEditedTimestamp { get; set; }
+
+		[Required]
 		public int SentTimestamp { get; set; }
 	}
 }

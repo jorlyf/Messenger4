@@ -9,7 +9,7 @@
 
 		public static int GetTimestampNow()
 		{
-			return (int)new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
+			return (int)new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds();
 		}
 	}
 }

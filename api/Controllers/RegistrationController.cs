@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using api.Services.Auth;
 using api.Infrastructure.Exceptions.Auth;
+using api.Services.Auth;
 using api.Entities.DTOs.Auth;
 
 namespace api.Controllers
@@ -10,12 +10,10 @@ namespace api.Controllers
 	public class RegistrationController : ControllerBase
 	{
 		private RegistrationService RegistrationService { get; }
-
 		public RegistrationController(RegistrationService registrationService)
 		{
 			this.RegistrationService = registrationService;
 		}
-
 
 		[HttpPost]
 		[Route("")]

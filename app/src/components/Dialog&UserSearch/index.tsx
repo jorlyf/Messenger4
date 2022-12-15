@@ -6,10 +6,14 @@ import SearchResult from "./SearchResult";
 interface DialogAndUserSearchProps {
   handleUserItemClick: (userId: number) => void;
   handlePublicGroupItemClick: (groupId: number) => void;
-  clearAfterUserItemClick: boolean;
+  clearAfterItemClick: boolean;
 }
 
-const DialogAndUserSearch: React.FC<DialogAndUserSearchProps> = ({ handleUserItemClick, handlePublicGroupItemClick, clearAfterUserItemClick }) => {
+const DialogAndUserSearch: React.FC<DialogAndUserSearchProps> = ({
+  handleUserItemClick,
+  handlePublicGroupItemClick,
+  clearAfterItemClick
+}) => {
 
   //const ownerUser = useAppSelector(state => state.profile.user);
 
@@ -37,14 +41,14 @@ const DialogAndUserSearch: React.FC<DialogAndUserSearchProps> = ({ handleUserIte
 
   const localHandleUserItemClick = (userId: number) => {
     handleUserItemClick(userId);
-    if (clearAfterUserItemClick) {
+    if (clearAfterItemClick) {
       clear();
     }
   }
 
   const localHandlePublicGroupItemClick = (groupId: number) => {
     handlePublicGroupItemClick(groupId);
-    if (clearAfterUserItemClick) {
+    if (clearAfterItemClick) {
       clear();
     }
   }
