@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { AppDispatch } from "@redux/store";
 import useAppSelector from "@hooks/useAppSelector";
-import DialogService from "@services/DialogService";
 import { IDialogItem } from "@components/DialogListItem";
 import { Dialog, DialogType, Message } from "@entities/local";
 

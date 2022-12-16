@@ -6,6 +6,9 @@ using System.Text;
 using api.DbContexts;
 using api.Repositories;
 using api.Services.Auth;
+using api.Services.User;
+using api.Services.Dialog;
+using api.Services.Message;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -59,8 +62,16 @@ builder.Services.AddSingleton<HashService>();
 
 // Scoped
 builder.Services.AddScoped<UnitOfWork>();
+
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<RegistrationService>();
+
+builder.Services.AddScoped<GetUserService>();
+
+builder.Services.AddScoped<GetDialogService>();
+
+builder.Services.AddScoped<GetMessageService>();
+builder.Services.AddScoped<SendMessageService>();
 
 #endregion
 

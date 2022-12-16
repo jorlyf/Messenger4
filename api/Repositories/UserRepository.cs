@@ -16,7 +16,7 @@ namespace api.Repositories
 
 		public IQueryable<UserModel> GetByLoginContains(string login)
 		{
-			return this.Set.Where(user => user.Login.Contains(login, StringComparison.InvariantCultureIgnoreCase));
+			return this.Set.Where(user => user.Login.ToLower().Contains(login.ToLower()));
 		}
 	}
 }

@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
 import useAppSelector from "@hooks/useAppSelector";
-import { RoutingURL } from "../Routing";
+import { RoutingURL } from "@routing/index";
+
 
 const useAuthPageRedirect = () => {
   const navigate = useNavigate();

@@ -28,6 +28,7 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js'],
     alias: {
       "@public": path.resolve(__dirname, "public"),
+      "@routing": path.resolve(__dirname, "src", "routing"),
       "@http": path.resolve(__dirname, "src", "http"),
       "@redux": path.resolve(__dirname, "src", "redux"),
       "@hooks": path.resolve(__dirname, "src", "hooks"),

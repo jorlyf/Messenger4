@@ -1,5 +1,6 @@
 import React from "react";
 import LeftColumnHeaderUserMenuContainer from "@components/LeftColumnHeaderUserMenu";
+import DialogAndUserSearchContainer from "@components/Dialog&UserSearch";
 
 import styles from "./index.module.scss";
 
@@ -14,10 +15,9 @@ const LeftColumnHeader: React.FC = () => {
     <header className={styles.header}>
       <LeftColumnHeaderUserMenuContainer />
       <div className={styles.search}>
-        {/* <DialogAndUserSearchContainer
-          handleUserItemClick={handleSearchResultUserItemClick}
-          clearAfterUserItemClick={true}
-        /> */}
+        <DialogAndUserSearchContainer
+          clearAfterItemClick={true}
+        />
       </div>
     </header>
   );

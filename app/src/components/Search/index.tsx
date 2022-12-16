@@ -12,19 +12,25 @@ interface SearchProps {
   disabled: boolean;
 }
 
-const Search: React.FC<SearchProps> = (props) => {
+const Search: React.FC<SearchProps> = ({
+  value,
+  setValue,
+  isFocus,
+  setIsFocus,
+  disabled
+}) => {
   return (
     <div className={styles.search}>
       <img className={styles.icon} src={SearchIcon} alt="SearchIcon" />
       <div className={styles.input}>
         <InputField
-          value={props.value}
-          setValue={props.setValue}
+          value={value}
+          setValue={setValue}
           placeholder={"Поиск..."}
           isOneRow={true}
           maxRows={1}
-          setIsFocus={props.setIsFocus}
-          disabled={props.disabled}
+          setIsFocus={setIsFocus}
+          disabled={disabled}
         />
       </div>
     </div>

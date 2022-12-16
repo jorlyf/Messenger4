@@ -1,15 +1,54 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import DialogService from "@services/DialogService";
-import { Dialog, DialogInfo } from "@entities/local";
+import { Dialog, DialogInfo, DialogType } from "@entities/local";
+import { getTimestampNow } from "@helpers/index";
 
 export const initLoadDialogs = createAsyncThunk<Dialog[]>(
-  "initLoad",
+  "dialog/initLoad",
   async () => {
     const { } = await DialogService.initLoadDialogs();
 
     return [];
   }
 );
+
+export interface handleChangeCurrentDialogProps {
+  dialogs: Dialog[];
+  dialogInfo: DialogInfo;
+}
+
+export const handleChangeCurrentDialog = createAsyncThunk<Dialog | null, handleChangeCurrentDialogProps>(
+  "dialog/handleChangeCurrentDialog",
+  async ({ dialogs, dialogInfo }) => {
+    let dialog = DialogService.findDialog(dialogs, dialogInfo);
+    if (dialog === null)
+    {
+      try {
+        dialog = await DialogService.getDialogById(dialogInfo.apiId, dialogInfo.type);
+      } catch (error) {
+        console.error("Не получилось получить диалог в handleChangeCurrentDialog()");
+      }
+    }
+
+    if (dialog === null && dialogInfo.type === DialogType.private) { // диалог не создан, но должна быть возможность выбрать его
+      dialog = {
+        id: "",
+        apiId: dialogInfo.apiId,
+        type: dialogInfo.type,
+        name: "",
+        messages: [],
+        totalMessageCount: 0,
+        unreadedMessageCount: 0,
+        userIds: [],
+        avatarUrl: null,
+        createdTimestamp: getTimestampNow(),
+        lastUpdatedTimestamp: getTimestampNow()
+      }
+    }
+
+    return dialog;
+  }
+)
 
 interface DialogState {
   dialogs: Dialog[];
@@ -34,7 +73,7 @@ const dialogSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(initLoadDialogs.pending, (state) => {
-        
+
       })
       .addCase(initLoadDialogs.fulfilled, (state, action) => {
         state.dialogsInitFetched = true;

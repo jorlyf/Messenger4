@@ -1,30 +1,54 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import useAppSelector from "@hooks/useAppSelector";
 import Search from "@components/Search";
-import SearchResult from "./SearchResult";
+import useDebounce from "@hooks/useDebounce";
+import UserService from "@services/UserService";
+import { RoutingURL } from "@routing/index";
+import SearchResultContainer, { SearchResultItems } from "./SearchResult";
 
-interface DialogAndUserSearchProps {
-  handleUserItemClick: (userId: number) => void;
-  handlePublicGroupItemClick: (groupId: number) => void;
+interface DialogAndUserSearchContainerProps {
   clearAfterItemClick: boolean;
 }
 
-const DialogAndUserSearch: React.FC<DialogAndUserSearchProps> = ({
-  handleUserItemClick,
-  handlePublicGroupItemClick,
+const DialogAndUserSearchContainer: React.FC<DialogAndUserSearchContainerProps> = ({
   clearAfterItemClick
 }) => {
-
-  //const ownerUser = useAppSelector(state => state.profile.user);
+  const navigate = useNavigate();
+  const ownerUser = useAppSelector(state => state.profile.user);
 
   const [searchValue, setSearchValue] = React.useState<string>("");
-  const [searchResult, setSearchResult] = React.useState([]);
+  const [searchResultItems, setSearchResultItems] = React.useState<SearchResultItems>({ users: [], groupDialogs: [] });
 
   const [inputFocus, setInputFocus] = React.useState<boolean>(false);
   const [active, setActive] = React.useState<boolean>(false);
 
+  const search = useDebounce(async (value: string) => {
+    if (!ownerUser) return;
+
+    try {
+      let users = await UserService.getUsersByLoginContains(value);
+      users = users.filter(u => u.id !== ownerUser.id);
+
+      setSearchResultItems({
+        groupDialogs: [],
+        users: users
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }, 500);
+
   const handleChangeSearchValue = (newValue: string) => {
     setSearchValue(newValue);
+
+    if (newValue) {
+      setActive(true);
+      search(newValue);
+    }
+    else {
+      setActive(false);
+    }
   }
 
   const handleOutsideClick = () => {
@@ -34,23 +58,25 @@ const DialogAndUserSearch: React.FC<DialogAndUserSearchProps> = ({
   }
 
   const clear = () => {
-    setSearchResult([]);
+    setSearchResultItems({ users: [], groupDialogs: [] });
     setSearchValue("");
     setActive(false);
   }
 
-  const localHandleUserItemClick = (userId: number) => {
-    handleUserItemClick(userId);
+  const handleUserItemClick = (userId: number) => {
     if (clearAfterItemClick) {
       clear();
     }
+
+    navigate(`${RoutingURL.chat}/user=${userId}`);
   }
 
-  const localHandlePublicGroupItemClick = (groupId: number) => {
-    handlePublicGroupItemClick(groupId);
+  const handleGroupDialogItemClick = (groupId: number) => {
     if (clearAfterItemClick) {
       clear();
     }
+
+    navigate(`${RoutingURL.chat}/group=${groupId}`);
   }
 
   React.useEffect(() => {
@@ -60,21 +86,66 @@ const DialogAndUserSearch: React.FC<DialogAndUserSearchProps> = ({
   }, [inputFocus]);
 
   return (
+    <DialogAndUserSearch
+      searchValue={searchValue}
+      setSearchValue={handleChangeSearchValue}
+      inputFocus={inputFocus}
+      setInputFocus={setInputFocus}
+      disabled={!ownerUser}
+      active={active}
+      searchResultItems={searchResultItems}
+      handleUserItemClick={handleUserItemClick}
+      handleGroupDialogItemClick={handleGroupDialogItemClick}
+      handleOutsideClick={handleOutsideClick}
+    />
+  )
+}
+
+interface DialogAndUserSearchProps {
+  searchValue: string;
+  setSearchValue: (newValue: string) => void;
+  inputFocus: boolean;
+  setInputFocus: (newValue: boolean) => void;
+  disabled: boolean;
+  active: boolean;
+  searchResultItems: SearchResultItems;
+  handleUserItemClick: any;
+  handleGroupDialogItemClick: any;
+  handleOutsideClick: any;
+}
+
+const DialogAndUserSearch: React.FC<DialogAndUserSearchProps> = ({
+  searchValue,
+  setSearchValue,
+  inputFocus,
+  setInputFocus,
+  disabled,
+  active,
+  searchResultItems,
+  handleUserItemClick,
+  handleGroupDialogItemClick,
+  handleOutsideClick
+}) => {
+
+  return (
     <div>
-      {/* <Search
+      <Search
         value={searchValue}
-        setValue={handleChangeSearchValue}
+        setValue={setSearchValue}
         isFocus={inputFocus}
         setIsFocus={setInputFocus}
-        disabled={!ownerUser}
-      /> */}
-      {active && searchResult &&
-        <SearchResult
-        // items={searchResult}
-        // handleUserItemClick={localHandleUserItemClick}
-        // handleOutsideClick={handleOutsideClick}
+        disabled={disabled}
+      />
+      {active && (searchResultItems.users.length > 0 || searchResultItems.groupDialogs.length > 0) &&
+        <SearchResultContainer
+          items={searchResultItems}
+          handleUserItemClick={handleUserItemClick}
+          handleGroupDialogItemClick={handleGroupDialogItemClick}
+          handleOutsideClick={handleOutsideClick}
         />
       }
     </div>
   )
 }
+
+export default DialogAndUserSearchContainer;

@@ -5,7 +5,7 @@ import { getUserFromUserDTO } from "@entities/local/User";
 
 export default class ProfileService {
   static async getProfile(): Promise<User> {
-    const { data } = await $api.get<UserDTO>("/Profile/Get");
+    const { data } = await $api.get<UserDTO>("/User/GetMyUser");
     if (data === null) return null;
     const user = getUserFromUserDTO(data);
     return user;
@@ -16,7 +16,7 @@ export default class ProfileService {
     const formData: FormData = new FormData();
     formData.set("avatar", avatar);
 
-    const { data } = await $api.post<string>("/Profile/UploadAvatar", formData);
+    const { data } = await $api.post<string>("/User/UploadAvatar", formData);
     return data;
   }
 }

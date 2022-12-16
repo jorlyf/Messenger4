@@ -30,7 +30,7 @@ const InputField: React.FC<InputFieldProps> = ({ value, setValue, placeholder, h
   }
   const handleUnfocus = () => {
     if (setIsFocus) { setIsFocus(false); }
-    setValue(value.trim()); // trim
+    // setValue(value.trim());
   }
   const getMaxRows = () => {
     if (isOneRow) return 1;

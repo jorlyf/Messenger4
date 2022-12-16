@@ -44,6 +44,7 @@ namespace api.Services.Dialog
 			{
 				Id = dialog.Id,
 				UserIds = dialog.UserIds.Select(x => x.UserId),
+				Name = dialog.Name,
 				CreatedTimestamp = dialog.CreatedTimestamp,
 				LastUpdatedTimestamp = dialog.LastUpdatedTimestamp
 			};
@@ -93,6 +94,7 @@ namespace api.Services.Dialog
 			{
 				Id = dialog.Id,
 				UserIds = dialog.UserIds.Select(x => x.UserId),
+				Name = dialog.Name,
 				CreatedTimestamp = dialog.CreatedTimestamp,
 				LastUpdatedTimestamp = dialog.LastUpdatedTimestamp
 			});

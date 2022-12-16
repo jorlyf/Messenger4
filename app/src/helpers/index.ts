@@ -21,3 +21,12 @@ export const getUserDataUrl = (url: string): string => {
 
   return `${BASE_URL}/${url}`;
 }
+
+export const getTimestampNow = (): number => {
+  return new Date().getTime();
+}
+
+export const getTimestampFromUTCTimestamp = (utc: number) => {
+  const offset = new Date().getTimezoneOffset() * 60 * 1000;
+  return utc + offset;
+}
