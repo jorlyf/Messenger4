@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import DialogService from "@services/DialogService";
 import { Dialog, DialogInfo, DialogType } from "@entities/local";
-import { getTimestampNow } from "@helpers/index";
+import { getTimestampNow, uuid } from "@helpers/index";
 
 export const initLoadDialogs = createAsyncThunk<Dialog[]>(
   "dialog/initLoad",
@@ -32,7 +32,7 @@ export const handleChangeCurrentDialog = createAsyncThunk<Dialog | null, handleC
 
     if (dialog === null && dialogInfo.type === DialogType.private) { // диалог не создан, но должна быть возможность выбрать его
       dialog = {
-        id: "",
+        id: uuid(),
         apiId: dialogInfo.apiId,
         type: dialogInfo.type,
         name: "",
